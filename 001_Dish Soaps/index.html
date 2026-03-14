@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1374 Lab | Recording Assistant (Studio White)</title>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --accent: #2563eb;
+            --border: #e2e8f0;
+            --highlight: #10b981;
+            --warning: #ef4444;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0; padding: 0;
+            overflow: hidden;
+        }
+
+        /* Navigation Tab */
+        nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .brand { font-weight: 900; font-size: 1.8rem; color: var(--accent); letter-spacing: -1.5px; }
+        
+        .tab-group { display: flex; gap: 12px; }
+        .tab-btn {
+            background: #f1f5f9;
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+        .tab-btn:hover:not(.active) {
+            background: #e2e8f0;
+        }
+
+        .view-container {
+            height: calc(100vh - 80px);
+            padding: 40px;
+            overflow-y: auto;
+            display: none;
+        }
+        .view-container.active { display: block; animation: fadeInUp 0.5s ease-out; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 01. Evidence Wall (13 Logs) */
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 24px;
+        }
+        .log-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .log-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .log-card img { width: 100%; height: auto; display: block; border-radius: 8px; }
+        .log-label { 
+            background: #f8fafc; 
+            color: var(--text-sub); 
+            font-size: 0.8rem; 
+            padding: 8px; 
+            text-align: center; 
+            margin-top: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            border: 1px solid var(--border);
+        }
+
+        /* 02. Review Gallery (6 Products) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--shadow);
+        }
+        .product-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        .prod-img {
+            background: white;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .prod-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .prod-info { padding: 30px; }
+        .prod-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 18px; display: block; color: var(--text-main); }
+        
+        .score-row { margin-bottom: 14px; }
+        .score-label { font-size: 0.9rem; font-weight: 600; color: var(--text-sub); display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .score-bar { background: #f1f5f9; height: 10px; border-radius: 5px; overflow: hidden; border: 1px solid var(--border); }
+        .score-fill { background: var(--accent); height: 100%; border-radius: 5px; transition: width 1s ease-in-out; }
+
+        .btn-coupang {
+            display: block;
+            text-align: center;
+            background: #ff9000;
+            color: white;
+            padding: 14px;
+            margin-top: 24px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .btn-coupang:hover { background: #e68200; }
+
+        /* Labels */
+        .verdict-label {
+            position: absolute; top: 20px; left: 20px;
+            padding: 6px 16px; border-radius: 8px; font-weight: 800; font-size: 0.9rem;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .best { background: var(--highlight); color: white; }
+        .worst { background: var(--warning); color: white; }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .section-header {
+            margin-bottom: 40px; 
+            border-left: 6px solid var(--accent); 
+            padding-left: 20px;
+        }
+        .section-header h2 { font-size: 2rem; margin: 0; color: var(--text-main); }
+        .section-header p { font-size: 1.1rem; margin: 8px 0 0; color: var(--text-sub); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="brand">🔬 1374 LAB <span style="font-weight: 300; font-size: 0.9rem; color: var(--text-sub); margin-left: 10px;">Product Debugging System</span></div>
+    <div class="tab-group">
+        <button class="tab-btn active" onclick="showView('evidence', this)">DATA SOURCE (13 Logs)</button>
+        <button class="tab-btn" onclick="showView('gallery', this)">MAIN REVIEW (6 Prods)</button>
+    </div>
+</nav>
+
+<!-- View 01: Evidence Wall -->
+<div id="evidence" class="view-container active">
+    <div class="section-header">
+        <h2>Evidence: 13 Purchase Logs</h2>
+        <p>내돈내산 결제 데이터 디버깅 (Total Spend: ₩13,741,227+)</p>
+    </div>
+    <div class="evidence-grid" id="evidenceGrid">
+        <!-- JS will populate -->
+    </div>
+</div>
+
+<!-- View 02: Review Gallery -->
+<div id="gallery" class="view-container">
+    <div class="section-header">
+        <h2>Gallery: 6 Dish Soaps</h2>
+        <p>개발자 부부의 리얼 사용기</p>
+    </div>
+    <div class="gallery-grid">
+        <!-- 1. B&B -->
+        <a href="https://www.coupang.com/vp/products/7014947509" target="_blank" class="product-card" style="position: relative;">
+            <!-- <div class="verdict-label best">🏆 BEST</div> -->
+            <div class="prod-img"><img src="image (1).png" alt="비앤비"></div>
+            <div class="prod-info">
+                <span class="prod-title">비앤비 주방세제 액상형</span>
+                <div class="score-row">
+                    <div class="score-label"><span>Safety (안심 성분)</span><span>100%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 100%; background: var(--highlight);"></div></div>
+                </div>
+                <div class="score-row">
+                    <div class="score-label"><span>Power (세정 알고리즘)</span><span>85%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 85%;"></div></div>
+                </div>
+                <span class="btn-coupang">상세 보기</span>
+            </div>
+        </a>
+
+        <!-- 2. FRANKLIIN -->
+        <a href="https://www.coupang.com/vp/products/8309014082" target="_blank" class="product-card">
+            <div class="prod-img"><img src="image (4).png" alt="프랭클린"></div>
+            <div class="prod-info">
+                <span class="prod-title">FRANKLIIN 젖병세제</span>
+                <div class="score-row">
+                    <div class="score-label"><span>Safety (무향/무독)</span><span>100%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 100%; background: var(--highlight);"></div></div>
+                </div>
+                <div class="score-row">
+                    <div class="score-label"><span>Cost (가성비 효율)</span><span>40%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 40%; background: var(--warning);"></div></div>
+                </div>
+                <span class="btn-coupang">상세 보기</span>
+            </div>
+        </a>
+
+        <!-- 3. Jayonpong -->
+        <a href="https://www.coupang.com/vp/products/5026765438" target="_blank" class="product-card">
+            <div class="prod-img"><img src="image (9).png" alt="자연퐁"></div>
+            <div class="prod-info">
+                <span class="prod-title">자연퐁 스팀워시 4X</span>
+                <div class="score-row">
+                    <div class="score-label"><span>Power (기름기 제거)</span><span>100%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 100%; background: var(--accent);"></div></div>
+                </div>
+                <div class="score-row">
+                    <div class="score-label"><span>Cost (가격 대비 성능)</span><span>90%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 90%;"></div></div>
+                </div>
+                <span class="btn-coupang">상세 보기</span>
+            </div>
+        </a>
+
+        <!-- 4. Tamsa -->
+        <a href="https://www.coupang.com/vp/products/323587276" target="_blank" class="product-card">
+            <div class="prod-img"><img src="image.png" alt="탐사"></div>
+            <div class="prod-info">
+                <span class="prod-title">탐사 베이킹소다 세제</span>
+                <div class="score-row">
+                    <div class="score-label"><span>Cost (리터당 단가)</span><span>100%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 100%; background: var(--highlight);"></div></div>
+                </div>
+                <div class="score-row">
+                    <div class="score-label"><span>Safety (성분 스펙)</span><span>65%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 65%;"></div></div>
+                </div>
+                <span class="btn-coupang">상세 보기</span>
+            </div>
+        </a>
+
+        <!-- 5. Rainbow -->
+        <a href="https://www.coupang.com/vp/products/7576455969" target="_blank" class="product-card">
+            <div class="prod-img"><img src="image (6).png" alt="레인보우샵"></div>
+            <div class="prod-info">
+                <span class="prod-title">레인보우샵 액티브 워터</span>
+                <div class="score-row">
+                    <div class="score-label"><span>Safety (에코 로직)</span><span>85%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 85%;"></div></div>
+                </div>
+                <div class="score-row">
+                    <div class="score-label"><span>UX (사용 편의성)</span><span>60%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 60%;"></div></div>
+                </div>
+                <span class="btn-coupang">상세 보기</span>
+            </div>
+        </a>
+
+        <!-- 6. Salim -->
+        <a href="https://www.coupang.com/vp/products/9216995023" target="_blank" class="product-card" style="position: relative;">
+            <!-- <div class="verdict-label worst">🚫 BAD</div> -->
+            <div class="prod-img"><img src="image (11).png" alt="살림백서"></div>
+            <div class="prod-info">
+                <span class="prod-title">살림백서 구연산 세제</span>
+                <div class="score-row">
+                    <div class="score-label"><span>Design (UI 디자인)</span><span>95%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="score-row">
+                    <div class="score-label"><span>Hardware (물리 내구성)</span><span>20%</span></div>
+                    <div class="score-bar"><div class="score-fill" style="width: 20%; background: var(--warning);"></div></div>
+                </div>
+                <span class="btn-coupang">상세 보기</span>
+            </div>
+        </a>
+    </div>
+    <div style="height: 50px; width: 100%;"></div>
+</div>
+
+<script>
+    function showView(viewId, btn) {
+        document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        
+        document.getElementById(viewId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    const grid = document.getElementById('evidenceGrid');
+    const imageFiles = [
+        'image.png', 'image (1).png', 'image (2).png', 'image (3).png', 'image (4).png', 
+        'image (5).png', 'image (6).png', 'image (7).png', 'image (8).png', 'image (9).png', 
+        'image (10).png', 'image (11).png', 'image (12).png'
+    ];
+
+    imageFiles.forEach((file, index) => {
+        const card = document.createElement('div');
+        card.className = 'log-card';
+        card.innerHTML = `
+            <img src="${file}" alt="Purchase Log ${index + 1}" onerror="this.src='./${index+1}'">
+            <div class="log-label">DB_RECORD::LOG_0${index + 1}</div>
+        `;
+        grid.appendChild(card);
+    });
+</script>
+
+</body>
+</html>
