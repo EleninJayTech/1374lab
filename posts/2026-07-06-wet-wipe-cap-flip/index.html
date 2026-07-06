@@ -16,9 +16,13 @@ header{border-bottom:2px solid #E86A33;padding-bottom:12px;margin-bottom:32px}
 header a{text-decoration:none;color:#E86A33;font-weight:700}
 h1{font-size:1.7rem;color:#1A1A1A;margin-bottom:8px;line-height:1.3}
 h2{color:#1A1A1A;font-size:1.35rem;margin:2.2em 0 .6em;padding-bottom:.2em;
-    border-bottom:1px solid #d6d6d6}
+    border-bottom:1px solid #d6d6d6;clear:both}
 article h2::before{content:"";display:inline-block;width:.42em;height:.42em;background:#E86A33;
     border-radius:2px;margin-right:.5em;vertical-align:.08em}
+article::after{content:"";display:block;clear:both}
+.sec-art{float:right;width:128px;height:128px;margin:0 0 10px 24px}
+.sec-art svg{width:100%;height:100%}
+@media (max-width:520px){.sec-art{width:88px;height:88px;margin-left:14px}}
 h3{color:#1A1A1A;font-size:1.12rem;margin:1.8em 0 .5em}
 article p{margin:0 0 1.2em}
 article a{color:#E86A33;text-decoration:underline;text-underline-offset:2px}
@@ -64,6 +68,17 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid #d6d6d6;
     letter-spacing:.06em;margin-bottom:6px}
 .summary p{margin:0;font-size:1.02rem;line-height:1.7}
 article>p:first-of-type{font-size:1.12rem;font-weight:500}
+.point{clear:both;background:#E86A33;color:#fff;border-radius:10px;padding:22px 26px;
+    margin:1.9em 0;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.point .clbl{display:inline-block;font-weight:800;font-size:.74rem;letter-spacing:.08em;
+    opacity:.85;margin-bottom:8px}
+.point p{margin:.2em 0;font-size:1.08rem;line-height:1.6;font-weight:600}
+.point strong{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.warn{clear:both;background:#f1f1f1;border-left:5px solid #E86A33;border-radius:0 8px 8px 0;
+    padding:16px 20px;margin:1.7em 0}
+.warn .clbl{display:block;font-weight:800;font-size:.74rem;color:#E86A33;
+    letter-spacing:.06em;margin-bottom:6px}
+.warn p{margin:.2em 0}
 @media (max-width:520px){.wrap{padding:16px 14px 60px}h1{font-size:1.45rem}h2{font-size:1.2rem}}
 </style>
 <!-- AdSense: 여기에 Google AdSense 스크립트를 삽입하세요 -->
@@ -78,11 +93,11 @@ article>p:first-of-type{font-size:1.12rem;font-weight:500}
   <aside class="summary"><span class="lbl">핵심 요약</span><p>뒤집어 두면 중력이 수분을 뽑는 쪽으로 재분배해 첫 장부터 촉촉합니다. 단 '흡착력' 때문이 아니고, 진짜 핵심은 완전 밀폐 + 서늘한 보관입니다.</p></aside>
   <nav class="toc"><strong>목차</strong><ol><li><a href="#h-1">결론부터</a></li><li><a href="#h-2">왜 윗장부터 마를까</a></li><li><a href="#h-3">진짜 원리 두 가지</a></li><li><a href="#h-4">흔한 오해</a></li><li><a href="#h-5">이게 더 중요합니다 (한계·단점)</a></li><li><a href="#h-6">정리</a></li></ol></nav>
   <div class="ad-slot">광고 영역 (AdSense 삽입 위치)</div>
-  <article><h2 id="h-1">결론부터</h2>
+  <article><h2 id="h-1">결론부터</h2><div class="sec-art"><svg viewBox="0 0 120 120"><circle cx="60" cy="64" r="52" fill="#818181" opacity="0.2"/><path d="M60 28C60 28 38 54 38 72a22 22 0 0 0 44 0C82 54 60 28 60 28Z" fill="#E86A33"/><ellipse cx="52" cy="66" rx="5" ry="9" fill="#FFFFFF" opacity="0.45"/></svg></div>
 <p>캡형 물티슈는 <strong>뚜껑이 바닥으로 가게 뒤집어</strong> 두면 더 오래 촉촉합니다. 다만 흔히 아는 ‘뭉친 물 흡착력’ 때문이 아니고, 방향보다 더 중요한 게 따로 있습니다.</p>
-<h2 id="h-2">왜 윗장부터 마를까</h2>
+<h2 id="h-2">왜 윗장부터 마를까</h2><div class="sec-art"><svg viewBox="0 0 120 120"><circle cx="60" cy="64" r="52" fill="#818181" opacity="0.2"/><rect x="36" y="34" width="48" height="60" rx="10" fill="none" stroke="#818181" stroke-width="5"/><path d="M39 74h42v10a10 10 0 0 1-10 10H49a10 10 0 0 1-10-10z" fill="#E86A33"/></svg></div>
 <p>평소처럼(뚜껑이 위로) 두면 중력 때문에 물이 바닥 시트로 쏠립니다. 정작 우리가 뽑는 건 맨 위 시트라, 위에서부터 먼저 마르는 거죠. 수분이 빠져나가는 주된 통로는 비닐 전체가 아니라 <strong>캡 접합부와 스티커 마개의 미세한 틈</strong>입니다.</p>
-<h2 id="h-3">진짜 원리 두 가지</h2>
+<h2 id="h-3">진짜 원리 두 가지</h2><div class="sec-art"><svg viewBox="0 0 120 120"><circle cx="60" cy="64" r="52" fill="#818181" opacity="0.2"/><ellipse cx="60" cy="52" rx="24" ry="10" fill="#E86A33"/><rect x="30" y="82" width="60" height="8" rx="4" fill="#818181"/><path d="M48 66v7M44 69l4 4 4-4M72 66v7M68 69l4 4 4-4" fill="none" stroke="#E86A33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 <table>
 <thead>
 <tr>
@@ -105,19 +120,21 @@ article>p:first-of-type{font-size:1.12rem;font-weight:500}
 <li><strong>중력 재분배</strong>: 뒤집으면 바닥에 몰렸던 수분이 뽑는 쪽으로 이동합니다. 제조사(내츄럴블라썸·1cm플러스)도 안내하는 현상입니다.</li>
 <li><strong>뚜껑 틈 가압</strong>: 패키지 무게가 뚜껑을 눌러 미세 틈을 좁혀 기화를 늦춥니다.</li>
 </ol>
-<div class="ad-slot">광고 영역 (AdSense 삽입 위치)</div><h2 id="h-4">흔한 오해</h2>
+<div class="ad-slot">광고 영역 (AdSense 삽입 위치)</div><h2 id="h-4">흔한 오해</h2><div class="sec-art"><svg viewBox="0 0 120 120"><circle cx="60" cy="66" r="52" fill="#818181" opacity="0.2"/><rect x="30" y="52" width="60" height="50" rx="10" fill="#818181"/><ellipse cx="60" cy="52" rx="22" ry="8" fill="#E86A33"/><rect x="50" y="30" width="20" height="24" rx="4" fill="#FFFFFF" stroke="#E86A33" stroke-width="3"/></svg></div>
 <blockquote>
 <p>‘바닥에 뭉친 물은 흡착력이 있어서 안 마른다.’</p>
 </blockquote>
 <p>사실이 아닙니다. 밀폐가 안 되면 고인 물도 마릅니다 — 양이 많아 느리게 줄 뿐이죠. 뒤집기의 효과는 흡착력이 아니라 위 두 가지(재분배·가압)에서 옵니다.</p>
-<h2 id="h-5">이게 더 중요합니다 (한계·단점)</h2>
+<h2 id="h-5">이게 더 중요합니다 (한계·단점)</h2><div class="sec-art"><svg viewBox="0 0 120 120"><circle cx="60" cy="64" r="52" fill="#818181" opacity="0.2"/><rect x="53" y="30" width="14" height="50" rx="7" fill="#818181"/><rect x="56" y="48" width="8" height="32" fill="#E86A33"/><circle cx="60" cy="86" r="15" fill="#E86A33"/></svg></div>
 <ul>
 <li><strong>완전 밀폐가 먼저</strong>: 뒤집어도 캡을 ‘딸깍’ 안 잠그면 소용없습니다.</li>
 <li><strong>온도가 압도적</strong>: 덥거나 햇빛 닿는 곳이면 어떤 방향이든 빨리 마릅니다. 15~25도 서늘한 곳이 기본.</li>
 <li><strong>위생 주의</strong>: 뒤집으면 캡이 바닥에 닿아 먼지·세균이 인출구에 옮을 수 있고, 뽑을 때 다시 뒤집는 불편이 있습니다.</li>
 <li>보관 방향이 <strong>유통기한을 늘려주진 않습니다</strong>. 개봉 후엔 방향과 무관하게 몇 달 안에 쓰세요.</li>
 </ul>
-<h2 id="h-6">정리</h2>
+<aside class="point"><span class="clbl">포인트</span><p>방향보다 <strong>완전 밀폐 + 서늘한 보관</strong>이 훨씬 중요합니다. 뒤집기는 어디까지나 보조예요.</p>
+</aside>
+<h2 id="h-6">정리</h2><div class="sec-art"><svg viewBox="0 0 120 120"><circle cx="60" cy="64" r="52" fill="#818181" opacity="0.2"/><circle cx="60" cy="62" r="34" fill="#E86A33"/><path d="M46 62l10 11 20-22" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 <p>방향은 어디까지나 <strong>보조</strong>입니다. 진짜 핵심은 <strong>완전 밀폐 + 서늘한 보관</strong>이고, 뒤집기는 거기에 얹는 팁이에요. 위생이 신경 쓰이면 바닥에 뒤집기보다 밀폐부터 챙기세요.</p></article>
   <div class="ad-slot">광고 영역 (AdSense 삽입 위치)</div>
   <section class="sources"><strong>출처</strong><ol><li><a href="https://naturalblossom.co.kr/faq" rel="nofollow">내츄럴블라썸 FAQ (수분·중력 안내)</a></li><li><a href="https://1cmplus.com/260" rel="nofollow">1cm플러스 (역방향 보관 안내)</a></li><li><a href="https://www.wikitree.co.kr/articles/1122382" rel="nofollow">위키트리 — 물티슈 뒤집기 원리</a></li><li><a href="https://www.kca.go.kr/home/sub.do?menukey=4004&mode=view&no=1003126223&page=29" rel="nofollow">한국소비자원 — 물티슈 위생·밀폐</a></li><li><a href="https://v.daum.net/v/20260322201444298" rel="nofollow">Daum 뉴스 — ‘딸깍’ 밀폐와 세균</a></li></ol></section>
