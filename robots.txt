@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eleninjaytech.github.io/1374lab/sitemap.xml
