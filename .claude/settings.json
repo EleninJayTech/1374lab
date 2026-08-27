@@ -11,6 +11,7 @@
       "Bash(git clean:*)", "Bash(git rebase:*)", "Bash(rm -rf:*)"
     ],
     "deny": [
+      "Bash(cat *_secure_config*)",
       "Bash(cat *.env*)", "Bash(type *.env*)", "Bash(Get-Content *.env*)", "Bash(gc *.env*)",
       "PowerShell(Get-Content *.env*)",
       "Bash(dd *)", "Bash(mkfs*)", "Bash(shutdown*)", "Bash(reboot*)",
