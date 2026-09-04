@@ -1,3 +1,6 @@
+# 에디터
+.idea/
+
 # Claude 런타임
 .claude/cache/
 .claude/sessions/
@@ -7,6 +10,3 @@
 .claude/settings.local.json
 .claude/*.local.md
 CLAUDE.local.md
-
-# 에디터
-.idea/

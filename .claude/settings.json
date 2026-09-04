@@ -2,20 +2,42 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "Bash(git status:*)", "Bash(git log:*)", "Bash(git diff:*)", "Bash(git add:*)", "Bash(git commit:*)",
-      "Bash(git switch:*)", "Bash(git checkout:*)", "Bash(git pull:*)", "Bash(git push:*)",
-      "Bash(ls:*)", "Bash(pwd)"
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git switch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)",
+      "Bash(ls:*)",
+      "Bash(cd:*)",
+      "Bash(pwd)",
+      "Bash(which:*)"
     ],
     "ask": [
-      "Bash(git push --force:*)", "Bash(git push -f:*)", "Bash(git reset --hard:*)",
-      "Bash(git clean:*)", "Bash(git rebase:*)", "Bash(rm -rf:*)"
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git rebase:*)",
+      "Bash(rm -rf:*)"
     ],
     "deny": [
       "Bash(cat *_secure_config*)",
-      "Bash(cat *.env*)", "Bash(type *.env*)", "Bash(Get-Content *.env*)", "Bash(gc *.env*)",
+      "Bash(cat *.env*)",
+      "Bash(type *.env*)",
+      "Bash(Get-Content *.env*)",
+      "Bash(gc *.env*)",
       "PowerShell(Get-Content *.env*)",
-      "Bash(dd *)", "Bash(mkfs*)", "Bash(shutdown*)", "Bash(reboot*)",
-      "Bash(rm -rf /)", "Bash(rm -rf /*)", "Bash(rm -rf ~*)"
+      "Bash(dd *)",
+      "Bash(mkfs*)",
+      "Bash(shutdown*)",
+      "Bash(reboot*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)"
     ]
   }
 }
