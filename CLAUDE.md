@@ -44,7 +44,7 @@ feed.xml, sitemap.xml, robots.txt
 
 ### 동시편집 충돌
 - PROGRESS·DECISIONS는 append 전용(기존 줄 수정 금지). .gitattributes의 merge=union이 동시 append를 자동 합침.
-- **PROJECT_PLAN.md·CLAUDE.md엔 merge=union을 걸지 않는다** — 체크박스 토글·기록 줄 교체는 줄 수정이라 union이면 양쪽이 다 남아 파손된다. 충돌은 손으로: PROJECT_PLAN은 체크박스=완료 우선·미해결=합집합, CLAUDE.md의 dropin-applied는 적용일 최신 줄 기준.
+- **PROJECT_PLAN.md·CLAUDE.md엔 merge=union을 걸지 않는다** — 체크박스 토글·기록 줄 교체는 줄 수정이라 union이면 양쪽이 다 남아 파손된다. 충돌은 손으로: PROJECT_PLAN은 체크박스=완료 우선·미해결=합집합, CLAUDE.md의 dropin-applied는 적용일 최신 줄 기준(동률·`출처=` 처리는 00 STEP 5).
 - **되돌림**: 원항목을 지우지 말고 [Reverted] 새 항목 append + 원항목 끝에 "→ Reverted <날짜>". git revert가 PROGRESS 줄까지 지우면 그 줄은 되살린다(기록은 코드와 함께 되돌리지 않는다).
 - DECISIONS id는 동시 발번 충돌을 피해 날짜+작성자 포함(예: DEC-20260703-min).
 
@@ -53,6 +53,7 @@ feed.xml, sitemap.xml, robots.txt
 - 다른 repo는 접근 가능(cwd 또는 additionalDirectories)하면 자동 교차기록, 불가하면 "○○에 기록 필요" 알림. **그 알림은 나에게만 뜬다** — 상대에게 도달하는 채널은 그 repo의 git뿐이니, 주 대상 기록에 영향받는 repo·대상을 명시하고 **그 변경의 PR·이슈 본문에도 한 줄** 남긴다(개별 repo에서 각자 여는 팀에선 이 경로가 기본값이다).
 
 ### 세션 워크플로 규율
+- **같은 폴더에서 두 세션을 동시에 돌리지 않는다** — 작업 트리·git 인덱스·기록 파일을 공유해 서로의 미커밋이 섞인다(`merge=union`은 git 병합 때만 동작해 여기선 무력). 두 번째 작업은 `claude --worktree <이름>`으로 열거나, 이어받을 대화는 `claude -n <이름>`·`/rename`으로 이름을 붙여 `claude --resume <이름>`으로 연다 — `claude -c`는 그 폴더의 가장 최근 대화 하나만 연다. 아래 /resume·/wrap의 "세션 밖 변경" 처리는 이 습관이 깨졌을 때의 안전망이다.
 - 작업 요청엔 **성공 기준·검증 명령**(테스트/빌드/재현 스크립트)을 함께 받는다. 구현 후 그 검증을 실행해 **증거(출력)로 보고** — "됐다"는 말로 끝내지 않는다.
 - append-only(과거 수정·삭제 금지). 결정이 바뀌면 새 DEC + 기존에 "Superseded by DEC-…" 표시. 상호참조는 [[DEC-…]]·날짜.
 - /resume: **remote 있고 워킹트리 clean이면 `git pull --ff-only` 먼저**(아니면 `git fetch` 후 뒤처짐만 보고 — 병합은 사용자 결정) → **git status·브랜치로 미커밋(진행 중) 작업 발견** → 그다음 PROGRESS 최상단(**최근 ~5항목만** — 길면 항목당 앞 ~700자. 줄 수가 아니라 항목 수다, 통째 읽기 금지. **상단 날짜가 역순이면 날짜 기준**으로 다시 고른다 — 장수 통합 브랜치 병합 뒤엔 최상단이 최근이 아니다) + PROJECT_PLAN(현재 Phase·**미해결/관찰 중** — 인계 항목이 여기 있다) + 최근 DEC 3건. **다인 공유 파일이면 최상단 5항목이 남의 갈래로 채워진다** — 현재 브랜치·PWD가 가리키는 갈래를 우선 읽고 나머지는 갈래별 한 줄로 요약한다. 미커밋은 **세션 밖 변경**일 수 있다(같은 폴더에서 다른 세션이 진행 중) — 내 작업으로 단정해 잇거나 커밋·되돌리기·stash하지 않고 그렇게 함께 보고해 확인한다.
@@ -72,4 +73,4 @@ feed.xml, sitemap.xml, robots.txt
 ### 토큰 참고
 - docs/는 자동 선로딩되지 않고 필요 시만 읽힌다. 분할은 토큰이 아니라 정리·타겟 정확도용.
 
-<!-- dropin-applied: 2026-09-14 · 모드=전체 · 언어=ko · 00 v1.50 · 01 v1.73(§B 단일 repo(B형) — §F-1 블록 v1.73 정본 일치(`/resume`·`/wrap` 세션 밖 변경 2줄 교체). §F-3·§F-4·§F-5는 v1.69 이후 변경 없음. 글로벌 §D는 글로벌 기록 참조) · 03 v1.35(디자인 스킬은 글로벌 `frontend-design`·`svg-design`·`kr-ui-guide` — 동명 그림자 방지로 프로젝트 설치 안 함. §7·§8 해당 없음—비개발 repo 가드. MCP 해당 없음[.mcp.json 없음], 브라우저 검증=Claude in Chrome) · 04 v1.24(§1 hooks 해당 없음—빌드·린트·테스트 명령이 없는 정적 HTML repo / §2 CLI는 PC 스코프 — 글로벌 기록 참조 / §3 CI 해당 없음—PR 워크플로 미사용) · 미선택: 02(해당 없음—비개발 repo, 02 STEP 1 가드), 05, 06 · 출처=클론 D:\claude-dev -->
+<!-- dropin-applied: 2026-09-18 · 모드=전체 · 언어=ko · 00 v1.62 · 01 v1.85(§B 단일 repo(B형) — §F-1 블록 v1.85 정본 일치. §F-3·§F-4·§F-5는 v1.69 이후 변경 없음. 글로벌 §D는 글로벌 기록 참조) · 03 v1.48(디자인 스킬은 글로벌 `frontend-design`·`svg-design`·`kr-ui-guide` — 동명 그림자 방지로 프로젝트 설치 안 함. §7·§8 해당 없음—비개발 repo 가드. MCP 해당 없음[.mcp.json 없음], 브라우저 검증=Claude in Chrome) · 04 v1.30(§1 hooks 해당 없음—빌드·린트·테스트 명령이 없는 정적 HTML repo / §2 CLI는 PC 스코프 — 글로벌 기록 참조 / §3 CI 해당 없음—PR 워크플로 미사용) · 미선택: 02(해당 없음—비개발 repo, 02 STEP 1 가드), 05, 06 · 출처=클론 D:\claude-dev -->
