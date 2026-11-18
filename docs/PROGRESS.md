@@ -2,6 +2,8 @@
 
 > 최신 항목이 위. 세션마다 최상단에 append(기존 줄 수정 금지).
 
+- [공통][Done] **다음 행동: 대화형 세션에서 `/dropin-sync`로 03 §5 Claude in Chrome 경로를 확인하고 03 기록(v1.48)을 올린다.** 드롭인 일괄 최신화(`/dropin-rollout`) — 00 v1.90·01 v1.121·04 v1.46: §F-1 블록 v1.121 재구성, `.gitignore`에 Playwright CLI 출력, §J 웹 노출(공개 URL에서 CLAUDE.md·docs 200)은 사용자 결정으로 현 상태 유지. 본문은 claude-dev `docs/PROGRESS.md` 2026-11-18 '드롭인 일괄 최신화' 항목. — @bsjeong87 (chore/001-dropin-sync) 2026-11-18
+
 - [공통][Done] **드롭인 재적용 — 00 v1.62·01 v1.85·03 v1.48·04 v1.30**. 본문은 claude-dev `docs/PROGRESS.md` 2026-09-18 '드롭인 재적용 일괄' 항목. **다음 행동 없음**. 이 repo 변경: §F-1 두 줄(동시 세션 금지 · 머지 규칙 괄호) · 기록 줄. 03·04는 절차 개정뿐이라 산출물 변경 0 — @bsjeong87 (main) 2026-09-18
 
 - [공통][Done] **다음 행동 없음.** 드롭인 재적용(00 v1.50·01 v1.73·03 v1.35·04 v1.24, 모드=전체, 출처=클론 D:\claude-dev · 커밋 bfa77af) — §F-1 `/resume`·`/wrap` 2줄 v1.73 교체, 기록 줄 갱신(03 디자인 스킬에 글로벌 `kr-ui-guide` 추가 · 04 CI·03 §7·§8 해당 없음을 00 적용 범위 메모 형식으로 옮김). `.gitignore` 줄 끝 주석 분리 — `.claude/worktrees/`가 무시되지 않던 결함(01 §F-5 정본 블록 유래, 이 repo는 exclude 보완도 없었다). — @bsjeong87 (main) 2026-09-14
